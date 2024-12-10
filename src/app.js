@@ -39,6 +39,12 @@ async function checkBuild() {
     }
 }
 
+// 添加监听代码
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
+
 // 导出app和checkBuild
 module.exports = {
     app,
