@@ -1,8 +1,20 @@
 // src/app.js
 
-// 导入监控模块和配置文件
+const express = require('express');
 const monitor = require('./monitor');
 const config = require('../config/config');
+
+// 创建Express应用
+const app = express();
+
+// 添加路由
+app.get('/api/build-status', (req, res) => {
+    res.status(200).json({ status: 'success' });
+});
+
+app.post('/api/build-fail', (req, res) => {
+    res.status(500).json({ error: 'Build failed' });
+});
 
 /**
  * 检查构建状态并记录指标的异步函数
@@ -27,9 +39,8 @@ async function checkBuild() {
     }
 }
 
-// 导出checkBuild函数供其他模块使用
+// 导出app和checkBuild
 module.exports = {
+    app,
     checkBuild
 };
-
-module.exports = { app };
