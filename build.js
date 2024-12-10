@@ -20,11 +20,11 @@ if (!fs.existsSync(configDir)) {
 try {
     // 复制必要的文件到构建目录
     const filesToCopy = [
-      { src: 'src/app.js', dest: 'build/app.js' },
-      { src: 'src/monitor.js', dest: 'build/monitor.js' },
-      { src: 'config/config.js', dest: 'build/config.js' },
-      { src: 'package.json', dest: 'build/package.json' }
-  ];
+        { src: 'src/app.js', dest: 'build/app.js' },
+        { src: 'src/monitor.js', dest: 'build/monitor.js' },
+        { src: 'config/config.js', dest: 'build/config/config.js' },
+        { src: 'package.json', dest: 'build/package.json' }
+    ];
     filesToCopy.forEach(file => {
         const sourcePath = path.join(__dirname, file.src);
         const targetPath = path.join(__dirname, file.dest);
