@@ -5,16 +5,13 @@ pipeline {
         DOCKER_IMAGE = 'ci-project'
         CONTAINER_NAME = 'ci-project'
         APP_PORT = '3000'
-        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/node/bin:$PATH"
     }
     
     stages {
         stage('Check Environment') {
             steps {
                 sh '''
-                    echo "PATH = $PATH"
-                    which node
-                    which npm
+                    export PATH="/usr/local/bin:$PATH"
                     node --version
                     npm --version
                 '''
@@ -30,19 +27,28 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh '''
+                    export PATH="/usr/local/bin:$PATH"
+                    npm install
+                '''
             }
         }
         
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh '''
+                    export PATH="/usr/local/bin:$PATH"
+                    npm run build
+                '''
             }
         }
         
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh '''
+                    export PATH="/usr/local/bin:$PATH"
+                    npm test
+                '''
             }
         }
         
