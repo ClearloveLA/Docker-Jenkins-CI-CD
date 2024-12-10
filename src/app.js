@@ -22,7 +22,7 @@ app.post('/api/build-fail', (req, res) => {
  */
 async function checkBuild() {
     try {
-        // 检查指定构建ID的构建状态
+        // 检查指定构建ID的构建状态/
         // build-123为构建ID，可以是Jenkins中的实际构建号
         await monitor.checkBuildStatus('build-123');
 
