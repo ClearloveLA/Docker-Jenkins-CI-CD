@@ -7,7 +7,7 @@ const config = require('./config/config');
 // 创建Express应用
 const app = express();
 
-// 添加路由1
+// 添加路由12
 app.get('/api/build-status', (req, res) => {
     res.status(200).json({ status: 'success' });
 });
