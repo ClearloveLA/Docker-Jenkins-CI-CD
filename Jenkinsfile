@@ -6,6 +6,13 @@ pipeline {
     }
     
     stages {
+        stage('Pull Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/ClearloveLA/-Docker-.git'
+            }
+        }
+        
         stage('Test Setup') {
             steps {
                 sh '''
