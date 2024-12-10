@@ -4,14 +4,9 @@ pipeline {
     stages {
         stage('Pull Code') {
             steps {
-                // 使用checkout命令替代git命令
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/master']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/ClearloveLA/-Docker-.git',
-                        credentialsId: '' // 如果是公开仓库，可以不需要凭证
-                    ]]
-                ])
+                // 使用简单的git命令
+                git branch: 'master',
+                    url: 'https://github.com/ClearloveLA/-Docker-.git'
             }
         }
         
