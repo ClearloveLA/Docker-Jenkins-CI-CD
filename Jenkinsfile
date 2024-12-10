@@ -2,18 +2,23 @@ pipeline {
     agent any
     
     tools {
-        nodejs 'NodeJS 16.x'
+        nodejs 'NodeJS'
     }
     
     environment {
         DOCKER_IMAGE = 'ci-project'
         CONTAINER_NAME = 'ci-project'
         APP_PORT = '3000'
+        PATH = "/root/.jenkins/tools/jenkins.plugins.nodejs.tools.NodeJSInstallation/NodeJS/bin:${PATH}"
     }
     
     stages {
-        stage('Check Environment') {
+        stage('Setup') {
             steps {
+                script {
+                    def nodeHome = tool 'NodeJS'
+                    env.PATH = "${nodeHome}/bin:${env.PATH}"
+                }
                 sh 'node --version'
                 sh 'npm --version'
             }
