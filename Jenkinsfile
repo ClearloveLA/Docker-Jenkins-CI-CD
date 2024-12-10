@@ -1,6 +1,11 @@
 pipeline {
     agent any
     
+    environment {
+        NODE_HOME = '/usr/local/node-v16.20.2-linux-x64'
+        PATH = "${env.NODE_HOME}/bin:${PATH}"
+    }
+    
     triggers {
         githubPush()
     }
@@ -16,23 +21,31 @@ pipeline {
         stage('Test Setup') {
             steps {
                 sh '''
+                    echo "Node binary location:"
+                    ls -l /usr/local/node-v16.20.2-linux-x64/bin/node
                     echo "Node version:"
-                    /usr/bin/node --version
+                    /usr/local/node-v16.20.2-linux-x64/bin/node --version
                     echo "NPM version:"
-                    /usr/bin/npm --version
+                    /usr/local/node-v16.20.2-linux-x64/bin/npm --version
                 '''
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                sh '/usr/bin/npm install'
+                sh '''
+                    export PATH="/usr/local/node-v16.20.2-linux-x64/bin:$PATH"
+                    npm install
+                '''
             }
         }
         
         stage('Run Tests') {
             steps {
-                sh '/usr/bin/npm test'
+                sh '''
+                    export PATH="/usr/local/node-v16.20.2-linux-x64/bin:$PATH"
+                    npm test
+                '''
             }
         }
     }
