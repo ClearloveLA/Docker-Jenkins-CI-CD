@@ -31,3 +31,5 @@ async function checkBuild() {
 module.exports = {
     checkBuild
 };
+
+module.exports = { app };
