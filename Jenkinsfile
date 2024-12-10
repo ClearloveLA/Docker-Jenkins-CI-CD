@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    tools {
+        nodejs 'NodeJS 16.x'
+    }
+    
     environment {
         DOCKER_IMAGE = 'ci-project'
         CONTAINER_NAME = 'ci-project'
@@ -10,11 +14,8 @@ pipeline {
     stages {
         stage('Check Environment') {
             steps {
-                sh '''
-                    export PATH="/usr/local/bin:$PATH"
-                    node --version
-                    npm --version
-                '''
+                sh 'node --version'
+                sh 'npm --version'
             }
         }
         
@@ -27,28 +28,19 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh '''
-                    export PATH="/usr/local/bin:$PATH"
-                    npm install
-                '''
+                sh 'npm install'
             }
         }
         
         stage('Build') {
             steps {
-                sh '''
-                    export PATH="/usr/local/bin:$PATH"
-                    npm run build
-                '''
+                sh 'npm run build'
             }
         }
         
         stage('Test') {
             steps {
-                sh '''
-                    export PATH="/usr/local/bin:$PATH"
-                    npm test
-                '''
+                sh 'npm test'
             }
         }
         
