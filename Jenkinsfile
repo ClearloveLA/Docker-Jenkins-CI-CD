@@ -17,22 +17,22 @@ pipeline {
             steps {
                 sh '''
                     echo "Node version:"
-                    node --version
+                    /usr/bin/node --version
                     echo "NPM version:"
-                    npm --version
+                    /usr/bin/npm --version
                 '''
             }
         }
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh '/usr/bin/npm install'
             }
         }
         
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                sh '/usr/bin/npm test'
             }
         }
     }
