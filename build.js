@@ -9,27 +9,32 @@ console.log('Starting build process...');
 const buildDir = path.join(__dirname, 'build');
 if (!fs.existsSync(buildDir)) {
     fs.mkdirSync(buildDir);
-    console.log('Created build directory');
+}
+
+// 确保配置目录存在
+const configDir = path.join(buildDir, 'config');
+if (!fs.existsSync(configDir)) {
+    fs.mkdirSync(configDir);
 }
 
 try {
     // 复制必要的文件到构建目录
     const filesToCopy = [
-        'src/app.js',
-        'src/monitor.js',
-        'config/config.js',
-        'package.json'
+        { src: 'src/app.js', dest: 'build/app.js' },
+        { src: 'src/monitor.js', dest: 'build/monitor.js' },
+        { src: 'config/config.js', dest: 'build/config/config.js' },
+        { src: 'package.json', dest: 'build/package.json' }
     ];
 
     filesToCopy.forEach(file => {
-        const sourcePath = path.join(__dirname, file);
-        const targetPath = path.join(buildDir, path.basename(file));
+        const sourcePath = path.join(__dirname, file.src);
+        const targetPath = path.join(__dirname, file.dest);
         
         if (fs.existsSync(sourcePath)) {
             fs.copyFileSync(sourcePath, targetPath);
-            console.log(`Copied ${file} to build directory`);
+            console.log(`Copied ${file.src} to ${file.dest}`);
         } else {
-            console.warn(`Warning: ${file} not found`);
+            console.warn(`Warning: ${file.src} not found`);
         }
     });
 
@@ -39,11 +44,6 @@ try {
         version: require('./package.json').version,
         node: process.version
     };
-
-    fs.writeFileSync(
-        path.join(buildDir, 'build-info.json'),
-        JSON.stringify(buildInfo, null, 2)
-    );
 
     console.log('Build completed successfully!');
     console.log('Build information:', buildInfo);
