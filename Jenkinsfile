@@ -5,15 +5,17 @@ pipeline {
         DOCKER_IMAGE = 'ci-project'
         CONTAINER_NAME = 'ci-project'
         APP_PORT = '3000'
+        NODE_VERSION = '16.x'
     }
     
     stages {
-        stage('Setup Node.js') {
+        stage('Setup Environment') {
             steps {
                 script {
+                    // 安装 Node.js
                     sh '''
-                        curl -sL https://rpm.nodesource.com/setup_16.x | bash -
-                        yum install -y nodejs
+                        curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+                        sudo yum install -y nodejs
                         node --version
                         npm --version
                     '''
@@ -28,9 +30,14 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
+            }
+        }
+        
+        stage('Build') {
+            steps {
                 sh 'npm run build'
             }
         }
