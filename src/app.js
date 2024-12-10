@@ -7,7 +7,7 @@ const config = require('./config/config');
 // 创建Express应用
 const app = express();
 
-// 添加路由2
+// 添加路由
 app.get('/api/build-status', (req, res) => {
     res.status(200).json({ status: 'success' });
 });
@@ -39,11 +39,13 @@ async function checkBuild() {
     }
 }
 
-// 添加监听代码
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+// 只在非测试环境启动服务器
+if (process.env.NODE_ENV !== 'test') {
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
+}
 
 // 导出app和checkBuild
 module.exports = {
