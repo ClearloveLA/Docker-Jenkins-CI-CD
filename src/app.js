@@ -2,7 +2,7 @@
 
 const express = require('express');
 const monitor = require('./monitor');
-const config = require('../config/config');
+const config = require('./config/config');
 
 // 创建Express应用 。
 const app = express();

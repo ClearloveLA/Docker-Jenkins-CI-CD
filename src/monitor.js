@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 const nodemailer = require('nodemailer');
-const config = require('../config/config');
+const config = require('./config/config');
 
 // 实现获取Jenkins构建状态的函数
 const getBuildStatus = async (buildId) => {
