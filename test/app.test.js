@@ -6,7 +6,7 @@ describe('API Tests', () => {
 
     beforeAll(() => {
         // 启动服务器
-        server = app.listen(0);
+        server = app.listen(0)
     });
 
     afterAll((done) => {
