@@ -5,7 +5,7 @@ describe('API Tests', () => {
     let server;
 
     beforeAll(() => {
-        // 启动服务器
+        // 启动服务器l
         server = app.listen(0);
     });
 
