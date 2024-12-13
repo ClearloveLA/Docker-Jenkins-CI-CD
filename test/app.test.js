@@ -16,7 +16,7 @@ describe('API Tests', () => {
 
     test('should return success for valid build', async () => {
         const response = await request(server)
-            .get('/api/build-status');
+            .get('/api/build-status')
         expect(response.status).toBe(200);
         expect(response.body.status).toBe('success');
     });
