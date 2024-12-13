@@ -10,7 +10,7 @@ describe('API Tests', () => {
     });
 
     afterAll((done) => {
-        // 关闭服务器。
+        // 关闭服务器
         server.close(done);
     });
 
